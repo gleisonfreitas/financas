@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title><ui:insert name="titulo">Sistema Financeiro</ui:insert></title>
+	<h:outputStylesheet library="css" name="estilo.css" />
+	<h:outputScript library="js" name="jetro.js"/>
+	<h:outputScript library="js" name="jquery.maskMoney.js"/>
+</h:head>
+<h:body>
+	<header style="background-color: #008000;"><!-- #008000 - Gileade -->
+		<h:graphicImage library="imagens" name="logo.png" height="98%"/>
+		<div style="float: right; margin-rigth: 20px; margin-top: 8px;">
+			Olá #{loginBean.nome}</div>
+	</header>
+	<h:form>
+		<p:menubar
+			style="margin-top: -20px; margin-bottom: 20px;">
+			<p:submenu label="Finanças " icon="fa fa-money">
+				<p:menuitem value="Resumo" outcome="/inicio" icon="fa fa-newspaper-o" />
+				<p:menuitem value="Categoria" outcome="/cadastroCategorias" icon="fa fa-th-list"/>
+				<p:menuitem value="Sub-Categoria" outcome="/cadastroSubCategorias" icon="fa fa-sitemap"/>
+				<p:menuitem value="Lançamento" outcome="/cadastroLancamentos" icon="fa fa-clipboard"/>
+			</p:submenu>
+			<p:submenu label="Membresia " icon="fa fa-users">
+				<p:menuitem value="Cadastro" outcome="/membro" icon="fa fa-user-plus" />
+				<p:menuitem value="Cidades" outcome="/cadastroCidades" icon="fa fa-globe"/>
+				<p:menuitem value="Funções" outcome="/cadastroFuncoes" icon="fa fa-street-view"/>
+				<p:menuitem value="Lideranças" outcome="/cadastroLiderancas" icon="fa fa-star"/>
+				<p:menuitem value="Profissões" outcome="/cadastroProfissoes" icon="fa fa-graduation-cap"/>
+			</p:submenu>
+			<p:submenu label="Consultas " icon="fa fa-search">
+				<p:menuitem value="Lançamentos" outcome="/consultaLancamentos" />
+				<p:menuitem value="Membros" outcome="/consultaMembros" />
+				<p:menuitem value="Relatórios" outcome="/relatorios" />
+			</p:submenu>
+			<p:submenu label="Configurações" icon="fa fa-cog">
+				<p:menuitem value="Responsabilidades" outcome="/configuracoes" />
+				<p:menuitem value="Alterar Senha" outcome="/alterarSenha" />
+			</p:submenu>
+			<p:menuitem value="Sair" action="#{loginBean.logout}"
+				icon="fa fa-sign-out" style="float: right"/>
+		</p:menubar>
+	</h:form>
+	<div id="conteudo">
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		   <h:graphicImage library="imagens" name="loading.gif" style="background-color: transparent;"/>
+		</p:dialog>
+		<ui:insert name="corpo" />
+	</div>
+
+	<footer> Sistema Jetro - Igreja Cristã Gileade - Cidade dos Funcionários</footer>
+
+</h:body>
+</html>

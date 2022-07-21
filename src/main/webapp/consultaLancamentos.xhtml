@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{consultaLancamentosBean.prepararConsulta}"></f:viewAction>
+	</f:metadata>
+
+	<ui:define name="titulo">Consulta de Lançamentos</ui:define>
+
+	<ui:define name="corpo">
+		<p:messages showDetail="false" showSummary="true" 
+			autoUpdate="true"/>
+		<h:form id="form" >
+			<p:fieldset legend="Consulta de Lançamentos">
+				<h:panelGrid id="pgFiltro" columns="3" style="width: 50%;">
+					<h:panelGrid>
+						<p:outputLabel for="txFiltroDescricao" value="Descrição"/>
+						<p:inputTextarea id="txFiltroDescricao" 
+							value="#{consultaLancamentosBean.filtro.descricao}"
+							cols="50"/>
+					</h:panelGrid>
+					<h:panelGrid>
+						<p:outputLabel for="listFiltroCategoria" value="Categoria"/>
+						<p:selectOneMenu id="listFiltroCategoria" 
+						value="#{consultaLancamentosBean.filtro.categoria}"
+						label="Categoria">
+						<f:selectItem itemLabel="Todos" noSelectionOption="true"/>
+						<f:selectItems
+							var="categoria"
+							value="#{consultaLancamentosBean.listaCategorias}"
+							itemValue="#{categoria}"
+							itemLabel="#{categoria.descricao}"/>
+						<f:ajax event="change" render="listFiltroSubCategoria"
+							listener="#{consultaLancamentosBean.atualizarListaSubCategoria}"/>
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGrid>
+						<p:outputLabel for="listFiltroSubCategoria" value="SubCategoria"/>
+						<p:selectOneMenu id="listFiltroSubCategoria"
+							value="#{consultaLancamentosBean.filtro.subCategoria}">
+							<f:selectItem itemLabel="Todos" noSelectionOption="true"/>
+							<f:selectItems
+								var="subcategoria"
+								value="#{consultaLancamentosBean.listaSubCategorias}"
+								itemValue="#{subcategoria}"
+								itemLabel="#{subcategoria.descricao}"/>
+						</p:selectOneMenu>
+					</h:panelGrid>
+					<h:panelGroup>
+						<h:panelGrid columns="2">
+							<p:outputLabel for="txValorMin" value="Valor Mínimo"/>
+							<p:outputLabel for="txValorMax" value="Valor Máximo"/>
+							<p:inputText id="txValorMin" 
+								value="#{consultaLancamentosBean.filtro.valorMin}"
+								styleClass="js-moeda"
+								style="text-align: right;">
+								<f:convertNumber locale="pt_BR"
+									maxFractionDigits="2" minFractionDigits="2"/>
+							</p:inputText>
+							<p:inputText id="txValorMax" 
+								value="#{consultaLancamentosBean.filtro.valorMax}"
+								styleClass="js-moeda"
+								style="text-align: right;">
+								<f:convertNumber locale="pt_BR"
+									maxFractionDigits="2" minFractionDigits="2"/>
+							</p:inputText>
+						</h:panelGrid>
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:panelGrid columns="2">
+							<p:outputLabel for="txDataInicio" value="Data Inicio"/>
+							<p:outputLabel for="txDataFim" value="Data Fim"/>
+							<p:calendar
+								id="txDataInicio" 
+								value="#{consultaLancamentosBean.filtro.dataInicio}"
+								size="12"
+								label="Data de Inicio"
+								pattern="dd/MM/yyyy">
+							</p:calendar>
+							<p:calendar
+								id="txDataFim" 
+								value="#{consultaLancamentosBean.filtro.dataFim}"
+								size="12"
+								label="Data de Inicio"
+								pattern="dd/MM/yyyy">
+							</p:calendar>
+						</h:panelGrid>
+					</h:panelGroup>
+					<h:outputLabel/>
+					<h:panelGroup>
+						<p:commandButton icon="fa fa-fw fa-search" title="Consultar" value="Consultar"
+								update="@form" action="#{consultaLancamentosBean.consultar}"
+								styleClass="ui-priority-primary"/>
+						<p:commandButton icon="fa fa-fw fa-eraser" title="Limpar" value="Limpar"
+								update="@form" action="#{consultaLancamentosBean.limpar}"
+								styleClass="ui-priority-primary"/>
+					</h:panelGroup>
+				</h:panelGrid>
+				<p:dataTable value="#{consultaLancamentosBean.lancamentos}"
+					var="lancamento" border="1" cellspacing="0" cellpadding="2"
+					paginator="true" rows="10" paginatorPosition="bottom"
+					emptyMessage="Registros não encontrados.">
+	
+					<p:column headerText="Data" sortBy="#{lancamento.data}">
+						<h:outputText value="#{lancamento.data}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+	
+					<p:column headerText="Descrição" sortBy="#{lancamento.descricao}">
+						<h:outputText value="#{lancamento.descricao}" />
+					</p:column>
+	
+					<p:column headerText="Categoria" sortBy="#{lancamento.subCategoria.categoria.descricao}">
+						<h:outputText value="#{lancamento.subCategoria.categoria.descricao}" />
+					</p:column>
+	
+					<p:column headerText="Sub-Categoria" sortBy="#{lancamento.subCategoria.descricao}">
+						<h:outputText value="#{lancamento.subCategoria.descricao}" />
+					</p:column>
+	
+					<p:column headerText="Crédito" sortBy="#{lancamento.valor}"
+						style="text-align: right">
+						<h:outputText value="#{lancamento.valor}" rendered="#{lancamento.subCategoria.categoria.credito}">
+							<f:convertNumber type="currency" locale="pt_BR"/>
+						</h:outputText>
+					</p:column>
+	
+					<p:column headerText="Débito" sortBy="#{lancamento.valor}" 
+						style="text-align: right">
+						<h:outputText value="#{lancamento.valor}" rendered="#{!lancamento.subCategoria.categoria.credito}">
+							<f:convertNumber type="currency" locale="pt_BR"/>
+						</h:outputText>
+					</p:column>
+					
+					<p:column>
+						<p:button	icon="fa fa-fw fa-pencil" title="Editar"
+								rendered="#{lancamento.mesRef.dataDesativacao eq null}"
+								outcome="/cadastroLancamentos">
+							<f:param name="id" value="#{lancamento.id}"/>
+						</p:button>					
+						<p:commandButton icon="ui-icon-trash" title="Excluir"
+							rendered="#{lancamento.mesRef.dataDesativacao eq null}"
+							process="@this" update="@form"
+							action="#{consultaLancamentosBean.inicializarExclusao}">
+							<f:setPropertyActionListener target="#{consultaLancamentosBean.lancamentoSelecionado}" value="#{lancamento}"/>						
+						</p:commandButton>
+						
+					</p:column>				
+				</p:dataTable>
+			</p:fieldset>
+			<p:dialog header="Excluir Lançamento"  visible="#{consultaLancamentosBean.vizualizaDialogExclusao}" widgetVar="dlg2" modal="true" height="100">
+				<h:panelGrid>
+	    			<h:outputText value="Tem certeza que deseja excluir o registro?"/><br/>
+	    			<h:panelGroup style="margin-left: 50px; margin-top: 50px;">
+	    				<p:commandButton icon="fa fa-fw fa-check" value="Sim"
+							process="@this" update="@form" 
+							action="#{consultaLancamentosBean.excluir}" 
+							styleClass="ui-priority-primary"
+							onclick="PF('dlg2').hide();">														
+						</p:commandButton>
+						<p:commandButton icon="fa fa-fw fa-close" 
+							value="Não" style="margin-left: 30px;"
+							process="@this" update="@form"									 
+							styleClass="ui-priority-primary"
+							onclick="PF('dlg2').hide();">
+							<f:setPropertyActionListener target="#{consultaLancamentosBean.vizualizaDialogExclusao}" value="#{false}"/>														
+						</p:commandButton>
+	    			</h:panelGroup>			    			
+				</h:panelGrid>
+			</p:dialog>			
+		</h:form>
+	</ui:define>
+</ui:composition>

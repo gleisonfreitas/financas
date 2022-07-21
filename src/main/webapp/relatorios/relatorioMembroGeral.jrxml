@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioMembro" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89616942-d3d8-4814-a479-f8da8fe996fe">
+	<property name="ireport.zoom" value="1.6105100000000026"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#7FFF00">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#DFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#7FFF00">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#DFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#7FFF00">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#DFFFBF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<parameter name="IMG" class="java.io.InputStream"/>
+	<parameter name="TOTAL_CREDITO" class="java.lang.Double"/>
+	<parameter name="TOTAL_DEBITO" class="java.lang.Double"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Gleison\\Documents\\Programação\\Aplicacao_Gestao_Contas_Igreja\\gestao_contas_igreja\\Financas\\src\\main\\webapp\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="FOTO" class="java.io.InputStream"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="identificacao" class="br.com.jetro.modelo.membresia.Identificacao">
+		<fieldDescription><![CDATA[identificacao]]></fieldDescription>
+	</field>
+	<field name="observacoes" class="java.lang.String">
+		<fieldDescription><![CDATA[observacoes]]></fieldDescription>
+	</field>
+	<field name="endereco" class="br.com.jetro.modelo.membresia.Endereco">
+		<fieldDescription><![CDATA[endereco]]></fieldDescription>
+	</field>
+	<field name="dadosComplementares" class="br.com.jetro.modelo.membresia.DadosComplementares">
+		<fieldDescription><![CDATA[dadosComplementares]]></fieldDescription>
+	</field>
+	<field name="dataCadastro" class="java.util.Date">
+		<fieldDescription><![CDATA[dataCadastro]]></fieldDescription>
+	</field>
+	<field name="dadosEclesiastico" class="br.com.jetro.modelo.membresia.DadosEclesiastico">
+		<fieldDescription><![CDATA[dadosEclesiastico]]></fieldDescription>
+	</field>
+	<title>
+		<band height="63">
+			<image>
+				<reportElement x="0" y="0" width="124" height="62" uuid="9fd6a5bf-df81-4466-997a-f9e04bbd5363"/>
+				<imageExpression><![CDATA[$P{IMG}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="35" width="555" height="21" uuid="a7b4e5a1-384d-458d-841f-11ef08156ec0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LISTA DE MEMBROS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25">
+			<staticText>
+				<reportElement x="0" y="9" width="100" height="15" uuid="c01dc78a-a05e-4a45-8770-3690c2b6f004"/>
+				<textElement>
+					<font isBold="true"/>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="346" y="9" width="100" height="15" uuid="23223e01-e350-4379-b599-f225a5caa508"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Telefone Celular]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="24" width="500" height="1" uuid="a514b22b-a398-4bc8-8ee9-6b8ea2774b15"/>
+			</line>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="346" height="20" uuid="90fe7d1a-456f-4092-9ca0-b8dbaf5dffbc"/>
+				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{identificacao}.getNome()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="346" y="0" width="132" height="20" uuid="dea9d984-292c-450b-a118-0d15dfc6df11"/>
+				<textElement>
+					<paragraph leftIndent="2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dadosComplementares}.getTelefoneCelular()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="20" width="500" height="1" uuid="d9de4b61-4cbb-41fd-871d-64338e12d7fe"/>
+			</line>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="36">
+			<textField>
+				<reportElement x="435" y="14" width="80" height="20" uuid="329acb65-7040-4a74-8fb1-7c6ea9fb2a5e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="14" width="40" height="20" uuid="7a4336fe-a2ef-419e-a258-b6ae7d1d4747"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

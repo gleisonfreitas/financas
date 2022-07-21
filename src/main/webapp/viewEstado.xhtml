@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+     
+    <h:head>
+        <title>Estados</title>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90%;
+            }
+        </style>
+    </h:head>
+     
+    <h:body>
+        <i id="customheader" class="fa fa-fw fa-car" style="display:none"></i>
+ 
+        <p:dataTable var="estado" value="#{estadoBean.estados}">
+            <p:column headerText="Nome">
+                <h:outputText value="#{estado.nome}" />
+            </p:column>
+            <p:column headerText="Sigla">
+                <h:outputText value="#{estado.siglaUF}" />
+            </p:column>
+        </p:dataTable>
+    </h:body>
+     
+</html>

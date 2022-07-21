@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{consultaMembrosBean.preparar}"></f:viewAction>
+	</f:metadata>
+
+	<ui:define name="titulo">Consulta de Membros</ui:define>
+
+	<ui:define name="corpo">
+		<p:messages showDetail="false" showSummary="true" 
+			autoUpdate="true"/>
+		<h:form id="form" >
+			<p:fieldset legend="Consulta de Membros">
+				<h:panelGrid id="pgFiltro" columns="6" style="width: 50%;">
+					<p:outputLabel for="txFiltroNome" value="Nome"/>
+					<p:inputText id="txFiltroNome" 
+							value="#{consultaMembrosBean.filtro.nome}"
+							styleClass="inputGrandeCadastroMembro"/>
+					<p:outputLabel for="txFiltroCpf" value="CPF"/>
+					<p:inputMask id="txFiltroCpf" 
+							value="#{consultaMembrosBean.filtro.cpf}"
+							mask="999.999.999-99"/>
+					<p:outputLabel value="Data de Nascimento"/>
+					<h:panelGrid columns="3">
+						<p:calendar
+							id="txDataInicio" 
+							value="#{consultaMembrosBean.filtro.dataInicio}"
+							size="12"
+							label="Data de Inicio"
+							pattern="dd/MM/yyyy"
+							mask="true">
+						</p:calendar>
+						<p:outputLabel value="à"/>
+						<p:calendar
+							id="txDataFim" 
+							value="#{consultaMembrosBean.filtro.dataFim}"
+							size="12"
+							label="Data de Fim"
+							pattern="dd/MM/yyyy"
+							mask="true">
+						</p:calendar>
+					</h:panelGrid>
+				</h:panelGrid>
+				<p:commandButton icon="fa fa-fw fa-search" title="Consultar" value="Consultar"
+						update="@form" action="#{consultaMembrosBean.consultar}"
+						styleClass="ui-priority-primary"/>
+				<p:dataTable value="#{consultaMembrosBean.membros}"
+					var="membro" border="1" cellspacing="0" cellpadding="2"
+					paginator="true" rows="20" paginatorPosition="bottom" 
+					emptyMessage="Registros não encontrados.">
+					
+					<p:column headerText="Nome" sortBy="#{membro.identificacao.nome}" width="30%">
+						<p:outputLabel value="#{membro.identificacao.nome}"/>
+					</p:column>
+					
+					<p:column headerText="CPF" sortBy="#{membro.dadosComplementares.cpf}" width="10%">
+						<h:outputText value="#{membro.dadosComplementares.cpf}">
+							<f:converter converterId="converterCPF"/>
+						</h:outputText>
+					</p:column>
+	
+					<p:column headerText="Telefone" sortBy="#{membro.dadosComplementares.telefoneCelular}" width="10%">
+						<h:outputText value="#{membro.dadosComplementares.telefoneCelular}">
+							<f:converter converterId="converterTelefoneCelular"/>
+						</h:outputText>
+					</p:column>
+					
+					<p:column headerText="Data Nascimento" sortBy="#{membro.dadosComplementares.dataNascimento}" width="12%">
+						<h:outputText value="#{membro.dadosComplementares.dataNascimento}">
+							<f:convertDateTime pattern="dd/MM/yyyy"/>
+						</h:outputText>
+					</p:column>
+	
+					<p:column headerText="Cidade" sortBy="#{membro.dadosComplementares.naturalidade.nome}" width="15%">
+						<h:outputText value="#{membro.dadosComplementares.naturalidade.nome} / #{membro.dadosComplementares.naturalidade.estado.siglaUF}" />
+					</p:column>
+				
+					
+					<p:column width="10%">
+						<p:button	icon="fa fa-fw fa-pencil" title="Editar"
+								outcome="/membro" process="@this">
+							<f:param name="id" value="#{membro.id}"/>
+						</p:button>
+						<p:commandButton icon="fa fa-fw fa-book"  ajax="false"
+							title="Visualizar" action="#{relatorioMembroBean.visualizar}">
+							<f:setPropertyActionListener value="#{membro}" 
+								target="#{relatorioMembroBean.membro}"/>
+						</p:commandButton>
+						<p:commandButton icon="fa fa-fw fa-trash-o" 
+							process="@this"
+							title="Excluir" onclick="PF('dlgExcluir').show();">
+							<f:setPropertyActionListener value="#{membro.id}" 
+								target="#{consultaMembrosBean.idExclusao}"/>
+						</p:commandButton>				
+					</p:column>				
+				</p:dataTable>
+			</p:fieldset>
+			<p:dialog header="Excluir Membro" 
+				widgetVar="dlgExcluir" modal="true" height="100">
+				<h:panelGrid>
+	    			<h:outputText value="Tem certeza que deseja excluir o membro?"/><br/>
+	    			<h:panelGroup style="margin-left: 50px; margin-top: 50px;">
+	    				<p:commandButton icon="fa fa-fw fa-check" value="Sim"
+							process="@this" update="@form" 
+							action="#{consultaMembrosBean.excluir}" 
+							styleClass="ui-priority-primary"
+							onclick="PF('dlgExcluir').hide();">														
+						</p:commandButton>
+						<p:commandButton icon="fa fa-fw fa-close" 
+							value="Não" style="margin-left: 30px;"
+							process="@this"									 
+							styleClass="ui-priority-primary"
+							onclick="PF('dlgExcluir').hide();">
+						</p:commandButton>
+	    			</h:panelGroup>			    			
+				</h:panelGrid>
+			</p:dialog>	
+		</h:form>
+	</ui:define>
+</ui:composition>

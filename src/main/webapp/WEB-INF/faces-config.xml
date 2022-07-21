@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+
+    <application>
+        <message-bundle>br.com.jetro.resources.messages</message-bundle>
+        <action-listener>org.primefaces.application.DialogActionListener</action-listener>
+        <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+        <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+    </application>
+    
+    <validator>
+    	<validator-id>validatorCPF</validator-id>
+    	<validator-class>br.com.jetro.beans.validation.ValidadorCPF</validator-class>
+    </validator>
+    
+    <converter>
+    	<converter-id>converterCPF</converter-id>
+    	<converter-class>br.com.jetro.converter.ConverterCPF</converter-class>
+    </converter>
+    
+    <converter>
+    	<converter-id>converterTelefoneCelular</converter-id>
+    	<converter-class>br.com.jetro.converter.ConverterTelefoneCelular</converter-class>
+    </converter>
+    
+</faces-config>

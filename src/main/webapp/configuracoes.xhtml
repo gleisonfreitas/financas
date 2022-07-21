@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{configuracoesBean.prepararConfiguracoes}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Configurações</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+			<p:fieldset legend="Configurações">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Presidente: "/>
+					<p:inputText label="Presidente" value="#{configuracoesBean.configuracaoGeral.presidente}" size="50"/>
+					<p:outputLabel value="Tesoureiro: "/>
+					<p:inputText label="Tesoureiro" value="#{configuracoesBean.configuracaoGeral.tesoureiro}" size="50"/>
+					<p:outputLabel value="Convenção: "/>
+					<p:inputText label="convencao" value="#{configuracoesBean.configuracaoGeral.nomeConvencao}"/>
+					<p:outputLabel value="Banco: "/>
+					<p:inputText label="banco" value="#{configuracoesBean.configuracaoGeral.nomeBanco}"/>
+					<p:outputLabel value="Agência: "/>
+					<p:inputText label="agencia" value="#{configuracoesBean.configuracaoGeral.nomeAgencia}"/>
+					<p:outputLabel value="Conta-Corrente: "/>
+					<p:inputText label="conta-corrente" value="#{configuracoesBean.configuracaoGeral.numeroConta}"/>
+					<p:commandButton value="Salvar" icon="fa fa-fw fa-book" 
+						styleClass="ui-priority-primary"
+						action="#{configuracoesBean.salvar}"/>
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Login</title>
+	<h:outputStylesheet library="css" name="estilo.css" />
+</h:head>
+<h:body>
+	<div>
+		<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+		   <h:graphicImage library="imagens" name="loading.gif" styleClass="loading"/>
+		</p:dialog>
+	</div>
+	<div id="login-dialog">
+		<h:graphicImage style="padding-left: 60px;padding-bottom: 20px;"
+			library="imagens" name="logo.png" />
+		<h2>Login</h2>
+
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+			
+				<h:panelGrid columns="2" styleClass="grid-login">
+					<p:outputLabel value="Usuario" for="usuario" />
+					<p:inputText id="usuario" size="20" value="#{loginBean.nome}" />
+	
+					<p:outputLabel value="Senha" for="senha" />
+					<p:password id="senha" size="20" value="#{loginBean.senha}" />
+	
+					<p:outputLabel />
+					<p:commandButton value="Entrar" action="#{loginBean.login}"
+						icon="fa fa-fw fa-sign-in" styleClass="ui-priority-primary" />
+				</h:panelGrid>
+		</h:form>
+	</div>
+</h:body>
+</html>

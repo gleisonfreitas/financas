@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioGeral" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89616942-d3d8-4814-a479-f8da8fe996fe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="1115"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="Font Rel" fontSize="60" isItalic="false"/>
+	<parameter name="IMG" class="java.io.InputStream"/>
+	<parameter name="TOTAL_CREDITO" class="java.lang.Double"/>
+	<parameter name="TOTAL_DEBITO" class="java.lang.Double"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Gleison\\Documents\\Programação\\Aplicacao_Gestao_Contas_Igreja\\Jetro\\Financas\\src\\main\\webapp\\relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IMG_1" class="java.io.InputStream"/>
+	<parameter name="IMG_2" class="java.io.InputStream"/>
+	<parameter name="IMG_3" class="java.io.InputStream"/>
+	<parameter name="IMG_4" class="java.io.InputStream"/>
+	<parameter name="IMG_5" class="java.io.InputStream"/>
+	<parameter name="IMG_6" class="java.io.InputStream"/>
+	<parameter name="IMG_7" class="java.io.InputStream"/>
+	<parameter name="IMG_9" class="java.io.InputStream"/>
+	<parameter name="IMG_8" class="java.io.InputStream"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="ano" class="java.lang.Integer">
+		<fieldDescription><![CDATA[ano]]></fieldDescription>
+	</field>
+	<field name="resumoLancamentoAnual" class="java.util.List">
+		<fieldDescription><![CDATA[resumoLancamentoAnual]]></fieldDescription>
+	</field>
+	<field name="resumoLancamentoMes" class="java.util.List">
+		<fieldDescription><![CDATA[resumoLancamentoMes]]></fieldDescription>
+	</field>
+	<field name="resumoLancamentoMesDespesas" class="java.util.List">
+		<fieldDescription><![CDATA[resumoLancamentoMesDespesas]]></fieldDescription>
+	</field>
+	<field name="resumoLancamentoMesReceitas" class="java.util.List">
+		<fieldDescription><![CDATA[resumoLancamentoMesReceitas]]></fieldDescription>
+	</field>
+	<field name="graficoDizimo" class="java.util.List">
+		<fieldDescription><![CDATA[graficoDizimo]]></fieldDescription>
+	</field>
+	<field name="graficoEnergia" class="java.util.List">
+		<fieldDescription><![CDATA[graficoEnergia]]></fieldDescription>
+	</field>
+	<field name="graficoGrupoDespesas" class="java.util.List">
+		<fieldDescription><![CDATA[graficoGrupoDespesas]]></fieldDescription>
+	</field>
+	<field name="graficoOferta" class="java.util.List">
+		<fieldDescription><![CDATA[graficoOferta]]></fieldDescription>
+	</field>
+	<field name="periodo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[periodo]]></fieldDescription>
+	</field>
+	<title>
+		<band height="131">
+			<image>
+				<reportElement x="0" y="0" width="124" height="62" uuid="9fd6a5bf-df81-4466-997a-f9e04bbd5363"/>
+				<imageExpression><![CDATA[$P{IMG}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement style="Font Rel" x="3" y="46" width="799" height="34" uuid="913cd86e-b294-44f6-af14-96a17344eafd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="20" isBold="true" isItalic="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PRESTAÇÃO DE CONTAS DO ANO "+$F{ano}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="80" width="802" height="30" uuid="804bcca3-4757-43a6-959e-e6872465949d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="SansSerif" size="20" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PERÍODO DE: "+($F{periodo} == 0 ? "JANEIRO À JUNHO" : $F{periodo} == 1 ? "JULHO À DEZEMBRO" : "JANEIRO À DEZEMBRO")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="10" width="799" height="36" uuid="6a77f3cb-7d6b-47cb-9b0a-6bf388729a28"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IGREJA CRISTÃ GILEADE DOS FUNCIONÁRIOS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20">
+			<textField>
+				<reportElement x="682" y="0" width="80" height="20" uuid="2da4244d-2839-40d4-ab80-9a3c6a2b2e73"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="762" y="0" width="40" height="20" uuid="6bfc1c6f-3532-4f1d-b4db-eb46303a09c0"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="106" splitType="Stretch">
+			<subreport>
+				<reportElement x="3" y="0" width="200" height="100" uuid="6fd1106d-ac0c-4511-ab17-70018a21208d"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{resumoLancamentoAnual})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_resumoAno.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="175">
+			<subreport>
+				<reportElement x="0" y="70" width="200" height="100" uuid="35631862-bf36-44be-864c-309a4b3a1d76"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{resumoLancamentoMes})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_resumoMes.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="0" y="18" width="802" height="33" uuid="d4bb2d95-d9f4-4612-be6c-cbb99ab8c3b6"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RESUMO MENSAL"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="50006637-9d38-42b1-bcb0-424db48d89b0"/>
+			</break>
+			<image>
+				<reportElement x="0" y="4" width="124" height="62" uuid="91a3b800-7aef-4950-a33e-4e4810cfbc1b"/>
+				<imageExpression><![CDATA[$P{IMG_1}]]></imageExpression>
+			</image>
+		</band>
+		<band height="175">
+			<subreport>
+				<reportElement x="0" y="70" width="200" height="100" uuid="fcdc1fcf-f5de-4d72-a64c-914d8483b348"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{resumoLancamentoMes})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_graficoMes.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="0" y="18" width="802" height="33" uuid="bccd413e-2927-49b5-abb5-bab32007fd02"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["GRÁFICO MENSAL"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="e0c15905-6e95-43af-a1e1-23ddffddbec4"/>
+			</break>
+			<image>
+				<reportElement x="0" y="4" width="124" height="62" uuid="a6467684-f4db-4865-8fa0-515afc6ffcd4"/>
+				<imageExpression><![CDATA[$P{IMG_2}]]></imageExpression>
+			</image>
+		</band>
+		<band height="175">
+			<textField>
+				<reportElement x="0" y="14" width="802" height="33" uuid="3c55d9d9-03d0-47ae-b1eb-279d243894b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RESUMO DAS RECEITAS"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="2d0e8c37-89a9-4349-bd0d-210107687d64"/>
+			</break>
+			<subreport>
+				<reportElement x="0" y="70" width="200" height="100" uuid="7186d2fe-054b-4466-9c50-f9d9be64e435"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{resumoLancamentoMesReceitas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_resumoReceitasDespesas.jasper"]]></subreportExpression>
+			</subreport>
+			<image>
+				<reportElement x="0" y="2" width="124" height="62" uuid="09507359-1bdc-4e93-b8bb-23b8c2ae70d6"/>
+				<imageExpression><![CDATA[$P{IMG_3}]]></imageExpression>
+			</image>
+		</band>
+		<band height="175">
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="6475a08d-fb52-481e-857d-6f39e9bbab04"/>
+			</break>
+			<subreport>
+				<reportElement x="0" y="70" width="200" height="100" uuid="02588eeb-7822-4be4-a886-6b520ebcc980"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{graficoOferta})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_graficoReceitasDespesas.jasper"]]></subreportExpression>
+			</subreport>
+			<image>
+				<reportElement x="0" y="2" width="124" height="62" uuid="39e04601-997c-4f02-a404-e7bb47dfb047"/>
+				<imageExpression><![CDATA[$P{IMG_4}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="3" y="24" width="799" height="33" uuid="ec082678-6c16-42e9-9a58-1b92dec96a35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["OFERTAS"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="175">
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="4cb2e356-9427-4493-ad1b-a08d8b838a00"/>
+			</break>
+			<subreport>
+				<reportElement x="0" y="70" width="200" height="100" uuid="527f403d-dd5b-4b2d-8cce-365ecdf8e6fc"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{graficoDizimo})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_graficoReceitasDespesas.jasper"]]></subreportExpression>
+			</subreport>
+			<image>
+				<reportElement x="0" y="2" width="124" height="62" uuid="104a7548-7299-4f7a-a89f-7a074cb95a6a"/>
+				<imageExpression><![CDATA[$P{IMG_5}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="3" y="34" width="799" height="33" uuid="5acc3c89-0c2f-4e85-82ba-c7bdc9b5b73c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DÍZIMOS"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="175">
+			<textField>
+				<reportElement x="20" y="34" width="802" height="33" uuid="1eb96e50-4a9e-40a5-a91b-65e454b796da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["RESUMO DAS DESPESAS"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="e91c8305-162e-41d2-a16e-57d1f970cf8d"/>
+			</break>
+			<image>
+				<reportElement x="0" y="2" width="124" height="62" uuid="468f8a86-68bc-4b17-b164-bbdf02ad5007"/>
+				<imageExpression><![CDATA[$P{IMG_6}]]></imageExpression>
+			</image>
+			<subreport>
+				<reportElement x="0" y="70" width="200" height="100" uuid="6077c623-855f-45c1-8f94-2c2899d8f470"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{graficoGrupoDespesas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_resumoReceitasDespesas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="175">
+			<textField>
+				<reportElement x="20" y="35" width="782" height="33" uuid="61120cf9-1d67-401a-9dc5-2a5a20c8f64f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["GRÁFICO DO RESUMO DAS DESPESAS"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="44d392d8-1e78-4e16-abd5-9f85fe06b17e"/>
+			</break>
+			<image>
+				<reportElement x="0" y="2" width="124" height="62" uuid="8f66155c-a8a0-4ece-a884-04b720d1459c"/>
+				<imageExpression><![CDATA[$P{IMG_7}]]></imageExpression>
+			</image>
+			<subreport>
+				<reportElement x="0" y="70" width="200" height="100" uuid="bde85f73-e4f5-4472-b0fb-b0cc05734751"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{graficoGrupoDespesas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_graficoReceitasDespesas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="175">
+			<textField>
+				<reportElement x="0" y="15" width="802" height="33" uuid="3fc2c085-109c-421f-b19f-04fdb6305e94"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["DETALHADO DAS DESPESAS"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="447488fa-60f1-4194-bce7-b5ddf8ce1850"/>
+			</break>
+			<image>
+				<reportElement x="0" y="2" width="124" height="62" uuid="aa1733bb-bf1d-48de-8576-8e1316550128"/>
+				<imageExpression><![CDATA[$P{IMG_8}]]></imageExpression>
+			</image>
+			<subreport>
+				<reportElement x="0" y="70" width="200" height="100" uuid="7713a2d2-51a7-42ef-8abf-9fab25d88050"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{resumoLancamentoMesDespesas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_resumoReceitasDespesas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="175">
+			<textField>
+				<reportElement x="0" y="15" width="802" height="33" uuid="d553f0f6-0483-4195-b7d1-99682ed2f14a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["GRÁFICO DO DETALHADO DAS DESPESAS"]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="0" width="100" height="1" uuid="89e1c3c1-7f01-4a55-8016-cf292eba8b7a"/>
+			</break>
+			<image>
+				<reportElement x="0" y="2" width="124" height="62" uuid="2de3e68c-a425-4e2a-aa47-03828f1cac70"/>
+				<imageExpression><![CDATA[$P{IMG_9}]]></imageExpression>
+			</image>
+			<subreport>
+				<reportElement x="0" y="70" width="200" height="100" uuid="a691035d-368e-419d-b5fd-430a698e75b5"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{resumoLancamentoMesDespesas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "relatorioGeral_graficoReceitasDespesas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

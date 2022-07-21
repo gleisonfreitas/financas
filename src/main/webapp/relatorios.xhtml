@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{relatorioBean.prepararRelatorios}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Relatórios</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Relatórios</h1>
+
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+			
+			<h:panelGrid columns="2" cellspacing="10" columnClasses="columnTopAligned,columnTopAligned">
+			<p:fieldset legend="Finanças Mensal">
+				<h:panelGrid columns="2">
+					<h:panelGroup>
+						<p:outputLabel value="Mes Referência: "/>
+						<p:calendar id="idMes" value="#{relatorioBean.dataMesRef}" size="7"
+							label="Mês de Referência" pattern="MM/yyyy" immediate="true" mask="99/9999"/>
+					</h:panelGroup>
+					<p:outputLabel/>
+					<h:panelGroup>
+						<p:outputLabel value="Resumo Mensal "/>
+						<p:commandButton value="Gerar" icon="fa fa-fw fa-book" 
+							ajax="false" styleClass="ui-priority-primary"
+							action="#{relatorioBean.relatorioResumoMensal}"/>
+					</h:panelGroup>
+					<h:panelGroup>
+						<p:outputLabel value="Detalhado Mensal "/>
+						<p:commandButton value="Gerar" icon="fa fa-fw fa-book" 
+							ajax="false" styleClass="ui-priority-primary"
+							action="#{relatorioBean.relatorioDetalhadoMensal}"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:fieldset>
+			<p:fieldset legend="Membresia">
+				<h:panelGrid>
+					<h:panelGroup>
+						<p:outputLabel value="Mes Aniversário: "/>
+						<p:selectOneMenu value="#{relatorioMembroBean.mesAniv}">
+							<f:selectItems value="#{relatorioMembroBean.mesAnivSelec}"/>
+						</p:selectOneMenu>
+					</h:panelGroup>
+					<p:commandButton value="Gerar" icon="fa fa-fw fa-book" 
+						ajax="false" styleClass="ui-priority-primary"
+						action="#{relatorioMembroBean.relatorioAnivMensal}"/>
+				</h:panelGrid>
+			</p:fieldset>
+			<p:fieldset legend="Finanças Anual">
+				<h:panelGrid columns="4">
+					<p:outputLabel value="Ano Referência: "/>
+					<p:inputNumber value="#{relatorioBean.ano}" 
+						decimalPlaces="0" size="4" maxlength="4" maxValue="9999"
+						thousandSeparator=""/>
+					<p:outputLabel value="Filtro: "/>
+					<p:selectOneMenu value="#{relatorioBean.periodo}">
+						<f:selectItem itemLabel="1º Semestre" itemValue="0"/>
+						<f:selectItem itemLabel="2º Semestre" itemValue="1"/>
+						<f:selectItem itemLabel="Anual" itemValue="2"/>
+					</p:selectOneMenu>
+					<p:commandButton value="Gerar" icon="fa fa-fw fa-book"
+						ajax="false" styleClass="ui-priority-primary"
+						action="#{relatorioBean.relatorioAnual}"/>
+				</h:panelGrid>
+				<p:fieldset legend="Por Sub-Categoria">
+					<h:panelGrid columns="2">
+							<p:outputLabel value="Categoria" for="idCategoria"/>
+					
+							<p:selectOneMenu
+								id="idCategoria"
+								value="#{relatorioBean.categoria}"
+								label="Categoria"
+								filter="true" filterMatchMode="contains">
+								<f:ajax event="change" render="idSubCategoria"
+									listener="#{relatorioBean.atualizarListaSubCategoria}"/>
+								<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+								<f:selectItems 
+									value="#{relatorioBean.categorias}"
+									var="categoria" itemValue="#{categoria}"
+									itemLabel="#{categoria.descricao}"/>
+							</p:selectOneMenu>
+							<p:outputLabel value="Sub-Categoria" for="idSubCategoria"/>
+							<p:selectOneMenu
+								id="idSubCategoria"
+								value="#{relatorioBean.subCategoria}"
+								label="Sub-Categoria"
+								filter="true" filterMatchMode="contains">
+								<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+								<f:selectItems
+									value="#{relatorioBean.subCategorias}"
+									var="subCategoria"
+									itemValue="#{subCategoria}"
+									itemLabel="#{subCategoria.descricao}"/>
+							</p:selectOneMenu>
+							<p:commandButton value="Gerar" icon="fa fa-fw fa-book"
+								ajax="false" styleClass="ui-priority-primary"
+								action="#{relatorioBean.relatorioAnualPorSubCategoria}"/>
+					</h:panelGrid>
+				</p:fieldset>
+			</p:fieldset>
+			<p:fieldset legend="Membresia Geral">
+				<p:commandButton value="Gerar" icon="fa fa-fw fa-book" 
+					ajax="false" styleClass="ui-priority-primary"
+					action="#{relatorioMembroBean.relatorioGeral}"/>
+			</p:fieldset>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

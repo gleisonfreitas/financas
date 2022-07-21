@@ -1,0 +1,117 @@
+@CHARSET "utf-8";
+
+body {
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0px;
+	font-weight: normal;
+}
+
+header {
+	padding: 5px;
+	margin-bottom: 20px;
+	height: 100px;
+	background-color: #545454;
+	color: #fff;
+	box-shadow: 0px 2px 2px #ccc
+}
+
+#conteudo {
+	padding: 0px 8px;
+}
+
+footer {
+	border-top: 1px solid #ccc;
+	padding: 5px 8px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+h1 {
+	font-size: 24px;
+	font-weight: 500;
+	padding: 0px;
+	margin: 0px;
+	margin-bottom: 10px;
+}
+
+ajax-status {
+	display:block;
+	margin-bottom:2em;
+	height:24px;
+	background-color: transparent;
+}
+
+#login-dialog {
+	width: 260px;
+	margin: auto;
+	margin-top: 150px;
+}
+
+.grid-login {
+	background-color: #f2f2f2;
+	border-radius: 8px;
+	border: 1px solid #ccc;
+	margin-top: 8px;
+	padding: 10px;
+	width: 100%
+}
+
+.topAligned {
+    vertical-align: top;
+}
+
+.columnTopAligned{
+	vertical-align: text-top; 
+}
+.columnUmGridInicio{
+	width:40%;
+	vertical-align: top; 
+}
+
+.columnDoisGridInicio{
+	width:60%;
+	vertical-align: top; 
+}
+
+.columnUmGridCadastroMembro{
+	width:70%;
+	vertical-align: top; 
+}
+
+.columnDoisGridCadastroMembro{
+	width:30%;
+	vertical-align: top; 
+}
+
+.inputGrandeCadastroMembro{
+	width: 400px;
+}
+
+.inputMedioCadastroMembro{
+	width: 200px;
+}
+
+.inputPequenoCadastroMembro{
+	width: 100px;
+}
+
+.saldoPositivo{
+	color: green;
+}
+
+.tituloPage{
+	font-size: medium;
+	color: green;
+	margin-bottom: 50px;
+	font-style: inherit;
+}
+
+.saldoNegativo{
+	color: red;
+}
+
+.botao{
+	background: orange;
+	color: white;
+}

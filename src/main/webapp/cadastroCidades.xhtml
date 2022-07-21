@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{cadastroCidadesBean.prepararCadastro}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Cadastro de Cidades</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+			<p:fieldset legend="Cadastro de Cidades">
+				<h:panelGrid columns="2">
+					<h:outputText for="idEstado" value="Estado"/>
+						<p:selectOneMenu value="#{cadastroCidadesBean.cidade.estado}"
+							id="idEstado" label="Estado">
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+							<f:selectItems
+								var="estado"
+								value="#{cadastroCidadesBean.estados}" 
+								itemValue="#{estado}"
+								itemLabel="#{estado.nome}"/>
+							<f:ajax event="change" render="idListaCidades"
+								listener="#{cadastroCidadesBean.atualizarListaCidades}"/>
+						</p:selectOneMenu>
+					<p:outputLabel value="Cidade" for="idCidade" />
+					<p:inputText id="idCidade"
+						value="#{cadastroCidadesBean.cidade.nome}"
+						label="Cidade" />
+					<p:commandButton id="idBtSalvar" value="Salvar"
+						action="#{cadastroCidadesBean.salvarCidades}"
+						icon="fa fa-fw fa-plus" update="@form" 
+						styleClass="ui-priority-primary"/>
+					<p:outputLabel/>
+				</h:panelGrid>
+				<p:dataTable id="idListaCidades"
+					value="#{cadastroCidadesBean.cidades}" var="cidade"
+					border="1" cellspacing="0" cellpadding="2" paginator="true" rows="10"
+					paginatorPosition="bottom">
+	
+					<p:column headerText="Nome" sortBy="#{cidade.nome}">
+						<h:outputLabel value="#{cidade.nome}" />
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

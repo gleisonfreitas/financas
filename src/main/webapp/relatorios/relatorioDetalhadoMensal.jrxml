@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioDetalhadoMensal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89616942-d3d8-4814-a479-f8da8fe996fe">
+	<property name="ireport.zoom" value="1.9487171000000014"/>
+	<property name="ireport.x" value="139"/>
+	<property name="ireport.y" value="32"/>
+	<parameter name="IMG" class="java.io.InputStream"/>
+	<parameter name="TOTAL_CREDITO" class="java.lang.Double"/>
+	<parameter name="TOTAL_DEBITO" class="java.lang.Double"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="data" class="java.util.Date">
+		<fieldDescription><![CDATA[data]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[descricao]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[id]]></fieldDescription>
+	</field>
+	<field name="mesRef" class="br.com.jetro.modelo.financas.MesRef">
+		<fieldDescription><![CDATA[mesRef]]></fieldDescription>
+	</field>
+	<field name="subCategoria" class="br.com.jetro.modelo.financas.SubCategoria">
+		<fieldDescription><![CDATA[subCategoria]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
+	</field>
+	<title>
+		<band height="94">
+			<textField>
+				<reportElement x="0" y="69" width="555" height="20" uuid="62706f21-9dd6-4e04-b7df-6030c273899d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Mês Referência: "+new SimpleDateFormat("MMMM/yyyy").format($F{mesRef}.getData())]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="3" y="0" width="124" height="62" uuid="9fd6a5bf-df81-4466-997a-f9e04bbd5363"/>
+				<imageExpression><![CDATA[$P{IMG}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="29" width="555" height="20" uuid="3e69439d-a0e7-4dba-add0-47aee9571d91"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DETALHADO DA MOVIMENTAÇÃO DO CAIXA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="28">
+			<staticText>
+				<reportElement x="1" y="6" width="57" height="20" uuid="d13f0e20-9c6e-40fc-987f-428ac12f6d03"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="57" y="6" width="121" height="20" uuid="3deb0baf-f76a-4949-aaf9-db01cd515ae3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="178" y="6" width="111" height="20" uuid="3c729057-4af1-4990-89f6-ecf572d3ce0d"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CATEGORIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="289" y="6" width="111" height="20" uuid="9319ebe1-712b-49c8-b80b-283105faeef2"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUB-CATEGORIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="6" width="77" height="20" uuid="66541838-5365-4587-83cd-c3e2e5878fa3"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CRÉDITO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="477" y="6" width="78" height="20" uuid="8d26e6fd-80c7-49d8-ad05-814a86ae451f"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DÉBITO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="57" height="30" uuid="11031736-09e2-4f27-b803-2344f54c0b66"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="0" width="121" height="30" uuid="880a6c04-2efe-4d91-b356-5599ec46e5f1"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="178" y="0" width="111" height="30" uuid="144d0b5a-3c6b-4701-b499-35546e0dce1d"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subCategoria}.getCategoria().getDescricao()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="0" width="111" height="30" uuid="5e6363a6-915c-4b2d-830e-2b2580a325fb"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subCategoria}.getDescricao()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="77" height="30" uuid="e46a61c4-7ed5-401c-9cc2-d1a0c1e071a7"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subCategoria}.getCategoria().isCredito() ? br.com.jetro.util.Util.retornarNumeroBr($F{valor}) : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="477" y="0" width="78" height="30" uuid="629b458c-6a79-4242-af85-ddcf18891c84"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="8"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subCategoria}.getCategoria().isCredito() ? "" : br.com.jetro.util.Util.retornarNumeroBr($F{valor})]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27">
+			<textField>
+				<reportElement x="430" y="6" width="80" height="20" uuid="3f70c4fc-76ec-4f25-ba42-db2735b88ade"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="510" y="6" width="40" height="20" uuid="5c5c689d-2d1d-4e04-bd12-196c0d8b08b3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="60">
+			<textField>
+				<reportElement x="448" y="12" width="100" height="20" uuid="441c51b5-c3ad-494b-ac8e-7681bd406d86"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($P{TOTAL_CREDITO})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="348" y="12" width="100" height="20" uuid="90d97f72-35aa-4e11-a749-81ceaae89454"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Crédito:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="448" y="37" width="100" height="20" uuid="faebd29c-b7c7-47be-ab2a-35f8c5bafb9c"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($P{TOTAL_DEBITO})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="348" y="37" width="100" height="20" uuid="72472925-f1fe-48eb-be9c-76caed8f635b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Débito:]]></text>
+			</staticText>
+		</band>
+	</lastPageFooter>
+</jasperReport>

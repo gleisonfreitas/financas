@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:o="http://omnifaces.org/ui">
+<f:metadata>
+	<f:viewAction action="#{membroBean.prepararListas}" />
+</f:metadata>
+<h:head>
+	<title>Nova Cidade</title>
+        <style type="text/css">
+            .ui-widget {
+                font-size: 90%;
+            }
+        </style>
+</h:head>
+<h:body>
+<h:form>
+	<h:panelGrid columns="2" cellpadding="10">
+		<p:outputLabel value="Liderança"/>
+		<p:selectOneMenu value="#{membroBean.historicoLiderancaEd.lideranca}"
+			id="idListaEdLiderancaSelec" label="Liderança">
+			<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+			<f:selectItems
+				var="lideranca"
+				value="#{membroBean.listaLiderancas}" 
+				itemValue="#{lideranca}"
+				itemLabel="#{lideranca.nome}"/>
+		</p:selectOneMenu>
+		<p:outputLabel value="Data de Início"/>
+		<p:calendar
+			id="idEdDataInicio" 
+			value="#{membroBean.historicoLiderancaEd.dataInicio}"
+			size="12"
+			label="Data de Início"
+			pattern="dd/MM/yyyy"
+			mask="true">
+		</p:calendar>
+		<p:outputLabel value="Data Fim"/>
+		   			<p:calendar
+			id="idEdDataFim" 
+			value="#{membroBean.historicoLiderancaEd.dataFim}"
+			size="12"
+			label="Data Fim"
+			pattern="dd/MM/yyyy"
+			mask="true">
+		</p:calendar>
+		<p:commandButton id="idBtEdLideranca" value="Adicionar"
+			actionListener="#{membroBean.addLideranca}"
+			icon="fa fa-fw fa-plus" 
+			styleClass="botao"/>
+   		</h:panelGrid>
+</h:form>    
+</h:body>
+</html>

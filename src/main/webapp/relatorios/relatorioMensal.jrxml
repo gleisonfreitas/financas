@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorioMensal" pageWidth="595" pageHeight="842" columnWidth="567" leftMargin="14" rightMargin="14" topMargin="14" bottomMargin="14" uuid="45e9816b-40de-4c50-bc72-f3e96c47b4c1">
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="6129cbfd-721d-4d6f-9fcf-a9ed3dd48c5b">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="subCategoria" class="br.com.jetro.modelo.financas.SubCategoria">
+			<fieldDescription><![CDATA[subCategoria]]></fieldDescription>
+		</field>
+		<field name="valor" class="java.lang.Double">
+			<fieldDescription><![CDATA[valor]]></fieldDescription>
+		</field>
+	</subDataset>
+	<parameter name="IMG" class="java.io.InputStream"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/gleison/Documentos/Aplicacao_Gestao_Contas_Igreja/gestao_contas_igreja/Financas/src/main/webapp/relatorios/subRelatorioResumo.jasper"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="descontoPrevidenciario" class="java.lang.Double">
+		<fieldDescription><![CDATA[descontoPrevidenciario]]></fieldDescription>
+	</field>
+	<field name="listaDespesas" class="java.util.List">
+		<fieldDescription><![CDATA[listaDespesas]]></fieldDescription>
+	</field>
+	<field name="listaReceitas" class="java.util.List">
+		<fieldDescription><![CDATA[listaReceitas]]></fieldDescription>
+	</field>
+	<field name="saldoAnterior" class="java.lang.Double">
+		<fieldDescription><![CDATA[saldoAnterior]]></fieldDescription>
+	</field>
+	<field name="totalDespesas" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalDespesas]]></fieldDescription>
+	</field>
+	<field name="totalReceitas" class="java.lang.Double">
+		<fieldDescription><![CDATA[totalReceitas]]></fieldDescription>
+	</field>
+	<field name="valorNacional" class="java.lang.Double">
+		<fieldDescription><![CDATA[valorNacional]]></fieldDescription>
+	</field>
+	<field name="configuracao" class="br.com.jetro.modelo.ConfiguracaoGeral">
+		<fieldDescription><![CDATA[configuracao]]></fieldDescription>
+	</field>
+	<field name="mesRef" class="br.com.jetro.modelo.financas.MesRef">
+		<fieldDescription><![CDATA[mesRef]]></fieldDescription>
+	</field>
+	<title>
+		<band height="95" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="124" height="62" uuid="b8c0cd0e-b318-40ce-9d10-72f67d0c6b6b"/>
+				<imageExpression><![CDATA[$P{IMG}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="31" width="567" height="20" uuid="c050cf61-edbc-4012-b1d6-02afb3177c2c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESUMO DA MOVIMENTAÇÃO DO CAIXA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="72" width="555" height="20" uuid="a43bc82b-539d-4df8-879d-d42203972622"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Mês Referência: "+new SimpleDateFormat("MMM/yy").format($F{mesRef}.getData())]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="554" splitType="Stretch">
+			<subreport>
+				<reportElement x="320" y="23" width="235" height="82" uuid="96b9e78d-5b69-4dd9-9f2b-10b85f27d743"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaDespesas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="2" y="3" width="235" height="20" uuid="6abbb665-9d4f-4a14-8113-47070d6f52c5"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECEITAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="3" width="235" height="20" uuid="ecb66ee7-097d-40fd-aa03-c96997b02b56"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESPESAS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="167" y="402" width="71" height="15" uuid="abea3da0-61ab-4931-ac3e-f10748f27a45"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($F{valorNacional})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="432" width="166" height="15" uuid="81ccb82d-40e9-479c-b819-8e48b171e959"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Líquido (A-B)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="417" width="166" height="15" uuid="28397de2-b433-4d6e-b208-280f9e5b02c0"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Desconto p/ previdência (20%) (B)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="382" width="237" height="20" backcolor="#CCCCCC" uuid="e4034e96-02f9-4ecd-a75b-de140d75e955"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="402" width="166" height="15" uuid="b15c2063-dc72-4171-a291-87feecf5c043"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Nacional (10%) a pagar (A)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="167" y="432" width="71" height="15" uuid="00775d0f-aec5-427f-abc7-8ede5c6a6cfd"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($F{valorNacional}-$F{descontoPrevidenciario})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="417" width="71" height="15" uuid="5b1e19ce-4984-445e-aea1-8a4b44cb3449"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($F{descontoPrevidenciario})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="448" width="237" height="15" uuid="f9b07133-b001-476c-9df5-f6b8d3371c63"/>
+				<textElement markup="none">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{configuracao}.getNomeConvencao()+": Banco: "+$F{configuracao}.getNomeBanco()+" | Ag: "+$F{configuracao}.getNomeAgencia()+" | Cc: "+$F{configuracao}.getNumeroConta()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="508" width="71" height="15" uuid="b0b8bbc7-5347-427d-be17-fb8441981423"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($F{totalReceitas})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="522" width="166" height="15" uuid="48a461da-3ea1-466a-bbae-230df368c400"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESPESAS (-)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="536" width="166" height="15" uuid="27d45b76-5f80-4c8f-9cf8-889b24847625"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO ATUAL (=)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="508" width="166" height="15" uuid="54ae492d-716f-4e2d-b062-2437919172c5"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECEITAS (+)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="167" y="494" width="71" height="15" uuid="6322670b-fff9-4039-93b6-ccfa2230819d"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($F{saldoAnterior})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="494" width="166" height="15" uuid="3193049e-7d5e-4908-894f-69de2db8681a"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SALDO ANTERIOR (+)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="167" y="536" width="71" height="15" uuid="ffa22130-7a71-491e-be1e-d415cce713fc"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($F{saldoAnterior}+$F{totalReceitas}-$F{totalDespesas})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="522" width="71" height="15" uuid="42f41fe9-218d-4a12-9d40-71f39ad2f094"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($F{totalDespesas})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="474" width="237" height="20" uuid="209114d3-2607-4551-8d38-7b090d58182e"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESUMO]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="3" y="23" width="235" height="82" uuid="7be95b5f-5424-4344-941f-64f95af078ca"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{listaReceitas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="98">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="85790b59-e9e0-4d78-a8ff-d33b61f9dd3b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fortaleza - CE, "+DateFormat.getDateInstance(DateFormat.LONG, new Locale("pt", "Br")).format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="53" y="58" width="175" height="20" uuid="232b68e5-2870-4d08-9d3b-51e441ce7462"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{configuracao}.getTesoureiro()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="53" y="78" width="175" height="20" uuid="3d463a6f-9708-40b1-b602-01811d9d758b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Tesoureiro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="309" y="78" width="175" height="20" uuid="39aa6141-f3a1-400f-bbb8-d231d94fc36e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Presidente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="309" y="58" width="175" height="20" uuid="632cb11e-d4a6-41f6-b92b-ddda36fe88a4"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{configuracao}.getPresidente()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subRelatorioResumoReceitas" pageWidth="235" pageHeight="595" orientation="Landscape" columnWidth="235" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3de15b30-00a2-424e-bd10-30b8bf918bfa">
+	<property name="ireport.zoom" value="2.5937424601000023"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nomeCategoria" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeCategoria]]></fieldDescription>
+	</field>
+	<field name="nomeSubCategoria" class="java.lang.String">
+		<fieldDescription><![CDATA[nomeSubCategoria]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[valor]]></fieldDescription>
+	</field>
+	<variable name="valor_4" class="java.lang.Double" resetType="Group" resetGroup="categoria" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<variable name="valor_6" class="java.lang.Double" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{valor}]]></variableExpression>
+	</variable>
+	<group name="categoria">
+		<groupExpression><![CDATA[$F{nomeCategoria}]]></groupExpression>
+		<groupHeader>
+			<band height="16">
+				<textField>
+					<reportElement x="0" y="0" width="177" height="15" uuid="2994434f-3ba0-4616-843a-2020ef4e437c"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement>
+						<font fontName="Arial" size="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nomeCategoria}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="categoria">
+					<reportElement x="177" y="0" width="58" height="15" uuid="a517bd01-8a42-43b1-9c5c-9ca11a891fc5"/>
+					<box>
+						<bottomPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="5"/>
+					</textElement>
+					<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($V{valor_4})]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="150" height="20" backcolor="#CCCCCC" uuid="d42aa520-a047-4651-b996-3eef63162ee0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descrição]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="150" y="0" width="85" height="20" backcolor="#CCCCCC" uuid="e89de029-46f1-4d6e-8fdc-2a4ee7f1c701"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor R$]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement x="177" y="0" width="58" height="15" uuid="6ab555bc-4e9c-49a7-a830-f490dd0a3173"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($F{valor})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="177" height="15" uuid="b55e1b52-492e-446b-926e-a389a1a55c86"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="5"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeSubCategoria}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="150" height="20" backcolor="#CCCCCC" uuid="1768404d-ad9e-4493-9a3a-708f045d7628"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Geral]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="150" y="0" width="85" height="20" backcolor="#CCCCCC" uuid="c0551081-8d45-468c-a720-709ef2d44b05"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[br.com.jetro.util.Util.retornarNumeroBr($V{valor_6})]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

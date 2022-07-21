@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<o:viewParam name="id" value="#{membroBean.membro}"/>
+		<f:viewAction action="#{membroBean.preparar}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Cadastro de Membros</ui:define>
+
+	<ui:define name="corpo">
+
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+			
+		 	<p:fieldset legend="Cadastro de Membros">
+			    <p:tabView id="tbView">
+			        <p:tab title="Identificação" style="color: orange">
+			        	<h:panelGrid columns="2" 
+			        		columnClasses="columnDoisGridCadastroMembro, columnUmGridCadastroMembro">
+				            <h:panelGrid id="pgFoto">
+				            	 <p:graphicImage rendered="#{membroBean.foto ne null}"  value="#{membroBean.foto}" alt="Foto" title="Foto do membro"/>
+				            	 <h:graphicImage rendered="#{membroBean.foto eq null}" library="imagens" name="perfil.jpg" height="98%" alt="Foto" title="Adicione uma foto"/>
+				            </h:panelGrid>
+				            <h:panelGrid columns="2" cellpadding="10">
+				                <p:outputLabel
+				                    value="Nome" for="idNome"/>
+				                <p:inputText id="idNome" value="#{membroBean.membro.identificacao.nome}" styleClass="inputGrandeCadastroMembro"/>
+				                <p:outputLabel
+				                    value="E-mail" for="idEmail"/>
+				                <p:inputText id="idEmail" value="#{membroBean.membro.identificacao.email}" styleClass="inputGrandeCadastroMembro"/>
+				            	<p:outputLabel
+				                    value="Foto" />
+				                <p:fileUpload fileUploadListener="#{membroBean.handleFileUpload}" 
+				                	mode="advanced" dragDropSupport="false"
+	           						update="pgFoto" sizeLimit="9920000" label="Selecionar" 
+	           						fileLimit="1" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+	 
+	    						<p:growl id="messages" showDetail="true" />
+	    						
+				            </h:panelGrid>
+			        	</h:panelGrid>
+			        </p:tab>
+			        <p:tab title="Endereço" id="tabEndereco">
+			            <h:panelGrid columns="4" cellpadding="10">
+			        		<p:outputLabel value="Logradouro" />
+				            <p:inputText value="#{membroBean.membro.endereco.logradouro}" styleClass="inputGrandeCadastroMembro"/>
+				            <p:outputLabel for="idEstado" value="Estado"/>
+				            <h:panelGroup>
+								<p:selectOneMenu value="#{membroBean.estado}"
+									id="idEstado" label="Estado" styleClass="inputMedioCadastroMembro">
+									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+									<f:selectItems
+										var="estado"
+										value="#{membroBean.listaEstados}" 
+										itemValue="#{estado}"
+										itemLabel="#{estado.nome}"/>
+									<f:ajax event="change" render="pgCidadeEnd" 
+										listener="#{membroBean.atualizarListaCidades}"/>
+								</p:selectOneMenu>
+				            </h:panelGroup>
+				            <p:outputLabel value="Bairro" />
+				            <p:inputText value="#{membroBean.membro.endereco.bairro}" styleClass="inputGrandeCadastroMembro"/>
+				            <p:outputLabel for="idListaCidade" value="Cidade"/>
+				            <h:panelGrid id="pgCidadeEnd" columns="2">
+								<p:selectOneMenu value="#{membroBean.membro.endereco.cidade}"
+									id="idListaCidade" label="Cidade" styleClass="inputMedioCadastroMembro">
+									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+									<f:selectItems
+										var="cidade"
+										value="#{membroBean.listaCidades}" 
+										itemValue="#{cidade}"
+										itemLabel="#{cidade.nome}"/>
+								</p:selectOneMenu>
+								<p:commandButton id="idBtAddCidadeEnd"
+									icon="fa fa-fw fa-plus"
+									process="@this"
+									onclick="PF('dlgAddCidadeEnd').show();" 
+									styleClass="botao"
+									disabled="#{membroBean.estado eq null}">
+									<f:setPropertyActionListener value="true" 
+										target="#{membroBean.addCidadeEnd}"/>
+								</p:commandButton>
+				            </h:panelGrid>
+				            <p:outputLabel value="Complemento" />
+				            <p:inputText value="#{membroBean.membro.endereco.complemento}" styleClass="inputGrandeCadastroMembro"/>
+							<p:outputLabel value="Número" />
+				            <p:inputText value="#{membroBean.membro.endereco.numero}" styleClass="inputMedioCadastroMembro"/>
+							<p:outputLabel value="CEP" />
+				            <p:inputMask value="#{membroBean.membro.endereco.cep}"
+				            	mask="99999-999" 
+				            	styleClass="inputMedioCadastroMembro"/>
+			        	</h:panelGrid>
+			        	<p:dialog id="dlgAddRapidoCidadeEnd" header="Nova Cidade"  widgetVar="dlgAddCidadeEnd" 
+							width="350" modal="true" height="100"  resizable="false">
+							<h:panelGrid cellspacing="5" columns="2"
+								cellpadding="5" style="text-align: center;">
+					    			<p:outputLabel value="Nome   "/>
+					    			<p:inputText value="#{membroBean.cidade.nome}"
+					    				styleClass="inputMedioCadastroMembro"/>
+				    				<p:commandButton icon="fa fa-fw fa-check" value="Salvar"
+										action="#{membroBean.salvarCidade}"
+										process="@parent" update="pgCidadeEnd"
+										onclick="PF('dlgAddCidadeEnd').hide();"
+										styleClass="ui-priority-primary">
+									</p:commandButton>
+									<p:commandButton icon="fa fa-fw fa-close" 
+										value="Cancelar" style="margin-left: 20px;"
+										process="@parent"
+										styleClass="ui-priority-primary"
+										onclick="PF('dlgAddCidadeEnd').hide();">
+									</p:commandButton>
+							</h:panelGrid>
+						</p:dialog>
+			        </p:tab>
+			        <p:tab title="Dados Complementares" id="tabDadosComplementares">
+			            <h:panelGrid columns="4" cellpadding="10">
+			        		<p:outputLabel value="CPF" for="idCpf"/>
+				            <p:inputMask id="idCpf" 
+				            	value="#{membroBean.membro.dadosComplementares.cpf}" 
+				            	mask="999.999.999-99"
+				            	validator="validatorCPF"/>
+				            <p:outputLabel value="Sexo" for="idSexo"/>
+				            <p:selectOneRadio value="#{membroBean.membro.dadosComplementares.sexo}"
+								id="idSexo" label="Sexo">
+								<f:selectItems
+									var="sexo"
+									value="#{membroBean.listaSexo}" 
+									itemValue="#{sexo}"
+									itemLabel="#{sexo.nome}"/>
+							</p:selectOneRadio>
+				            <p:outputLabel value="Telefone Fixo" />
+				            <p:inputMask value="#{membroBean.membro.dadosComplementares.telefoneFixo}" mask="(99)9999-9999"/>
+				            <p:outputLabel value="Telefone Celular" />
+				            <p:inputMask value="#{membroBean.membro.dadosComplementares.telefoneCelular}" mask="(99)99999-9999"/>
+				            <p:outputLabel value="Estado Civil" for="idListaEstadoCivil"/>
+				            <p:selectOneMenu value="#{membroBean.membro.dadosComplementares.estadoCivil}"
+								id="idListaEstadoCivil" label="Estado Civil">
+								<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+								<f:selectItems
+									var="estadoCivil"
+									value="#{membroBean.listaEstadoCivil}" 
+									itemValue="#{estadoCivil}"
+									itemLabel="#{estadoCivil.nome}"/>
+							</p:selectOneMenu>
+							<p:outputLabel value="Nacionalidade" for="idNacionalidade"/>
+				            <p:selectOneRadio value="#{membroBean.membro.dadosComplementares.nacionalidade}"
+								id="idNacionalidade" label="Nacionalidade">
+								<f:selectItems
+									var="nacionalidade"
+									value="#{membroBean.listaNacionalidade}" 
+									itemValue="#{nacionalidade}"
+									itemLabel="#{nacionalidade.nome}"/>
+							</p:selectOneRadio>
+							<p:outputLabel value="Profissão" />
+							<h:panelGrid id="pgProfissao" columns="2">
+								<p:selectOneMenu value="#{membroBean.membro.dadosComplementares.profissao}"
+									id="idListaProfissao" label="Profissao">
+									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+									<f:selectItems
+										var="prof"
+										value="#{membroBean.listaProfissoes}" 
+										itemValue="#{prof}"
+										itemLabel="#{prof.nome}"/>
+								</p:selectOneMenu>
+								<p:commandButton id="idBtAddProfissao"
+									icon="fa fa-fw fa-plus"
+									process="@this"
+									onclick="PF('dlgAddProfissao').show();" 
+									styleClass="botao"/>
+							</h:panelGrid>
+							<p:outputLabel value="Data de Nascimento" for="idDataNasc"/>
+							<p:calendar
+								id="idDataNasc" 
+								value="#{membroBean.membro.dadosComplementares.dataNascimento}"
+								size="12"
+								label="Data de Nascimento"
+								pattern="dd/MM/yyyy"
+								mask="true">
+							</p:calendar>
+				            <p:outputLabel for="idEstadoNat" value="Estado Naturalidade"/>
+							<p:selectOneMenu value="#{membroBean.estadoNat}"
+								id="idEstadoNat" label="Estado Naturalidade">
+								<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+								<f:selectItems
+									var="estadoNat"
+									value="#{membroBean.listaEstadosNat}" 
+									itemValue="#{estadoNat}"
+									itemLabel="#{estadoNat.nome}"/>
+								<f:ajax event="change" render="pgCidade"
+									listener="#{membroBean.atualizarListaCidadesNat}"/>
+							</p:selectOneMenu>
+				            <p:outputLabel for="idListaCidadeNat" value="Cidade Naturalidade"/>
+							<h:panelGrid id="pgCidade" columns="2">
+								<p:selectOneMenu value="#{membroBean.membro.dadosComplementares.naturalidade}"
+									id="idListaCidadeNat" label="Cidade Naturalidade">
+									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+									<f:selectItems
+										var="cidadeNat"
+										value="#{membroBean.listaCidadesNat}" 
+										itemValue="#{cidadeNat}"
+										itemLabel="#{cidadeNat.nome}"/>
+								</p:selectOneMenu>
+								<p:commandButton id="idBtAddCidade"
+									icon="fa fa-fw fa-plus"
+									process="@this"
+									onclick="PF('dlgAddCidade').show();"  
+									styleClass="botao"
+									disabled="#{membroBean.estadoNat eq null}">
+									<f:setPropertyActionListener value="true" 
+										target="#{membroBean.addCidadeDC}"/>
+								</p:commandButton>
+							</h:panelGrid>
+							<p:outputLabel value="Congregando" rendered="#{membroBean.membro.id ne null}"/>
+				            <p:selectOneButton
+								id="idCongregando"
+								value="#{membroBean.membro.dadosComplementares.congregando}"
+								label="Congregando"
+								rendered="#{membroBean.membro.id ne null}">
+								<f:selectItem itemLabel="Sim" itemValue="S"/>
+								<f:selectItem itemLabel="Não" itemValue="N"/>
+							</p:selectOneButton>
+				            <p:outputLabel value="Data da Saída" rendered="#{membroBean.membro.id ne null}"/>
+							<p:calendar
+								id="idDataSaida" 
+								value="#{membroBean.membro.dadosComplementares.dataSaida}"
+								size="12"
+								label="Data da Saída"
+								pattern="dd/MM/yyyy"
+								mask="true"
+								rendered="#{membroBean.membro.id ne null}">
+							</p:calendar>
+			            </h:panelGrid>
+			            <p:dialog id="dlgAddRapidoCidade" header="Nova Cidade"  widgetVar="dlgAddCidade" 
+							width="350" modal="true" height="100"  resizable="false">
+							<h:panelGrid cellspacing="5" columns="2"
+								cellpadding="5" style="text-align: center;">
+					    			<p:outputLabel value="Nome   "/>
+					    			<p:inputText value="#{membroBean.cidade.nome}"
+					    				styleClass="inputMedioCadastroMembro"/>
+				    				<p:commandButton icon="fa fa-fw fa-check" value="Salvar"
+										action="#{membroBean.salvarCidade}"
+										process="@parent" update="pgCidade"
+										styleClass="ui-priority-primary"
+										onclick="PF('dlgAddCidade').hide();">
+									</p:commandButton>
+									<p:commandButton icon="fa fa-fw fa-close" 
+										value="Cancelar" style="margin-left: 20px;"
+										process="@parent" update="pgCidade"
+										styleClass="ui-priority-primary"
+										onclick="PF('dlgAddCidade').hide();">
+									</p:commandButton>
+							</h:panelGrid>
+						</p:dialog>
+						<p:dialog id="dlgAddRapidoProfissao" header="Nova Profissão"
+							widgetVar="dlgAddProfissao" width="350" modal="true" height="100"
+							resizable="false">
+							<h:panelGrid cellspacing="5" columns="2"
+								cellpadding="5" style="text-align: center;">
+					    			<p:outputLabel value="Nome   "/>
+					    			<p:inputText value="#{membroBean.profissao.nome}"
+					    				styleClass="inputMedioCadastroMembro"/>
+				    				<p:commandButton icon="fa fa-fw fa-check" value="Salvar"
+										action="#{membroBean.salvarProfissao}"
+										process="@parent" update="pgProfissao"
+										styleClass="ui-priority-primary"
+										onclick="PF('dlgAddProfissao').hide();">
+									</p:commandButton>
+									<p:commandButton icon="fa fa-fw fa-close" 
+										value="Cancelar" style="margin-left: 20px;"
+										process="@parent" update="pgProfissao"
+										styleClass="ui-priority-primary"
+										onclick="PF('dlgAddProfissao').hide();">
+									</p:commandButton>
+							</h:panelGrid>
+						</p:dialog>
+			        </p:tab>
+			        <p:tab title="Dados Eclesiásticos" id="tabDadosEclesiasticos">
+			        	<h:panelGrid columns="2" cellpadding="10" id="pgDadosEclesiastico"
+			        		columnClasses="columnUmGridInicio, columnUmGridInicio">
+			        		<h:panelGrid columns="2" cellpadding="10" id="pgDadosFuncao">
+				        		<p:outputLabel value="Data de Batismo  " />
+								<p:calendar
+									id="idDataBatismo" 
+									value="#{membroBean.membro.dadosEclesiastico.dataBatismo}"
+									size="12"
+									label="Data de Batismo"
+									pattern="dd/MM/yyyy"
+									mask="true">
+								</p:calendar>
+			        			<p:outputLabel value="Função"/>
+			        			<p:selectOneMenu value="#{membroBean.historicoFuncao.funcao}"
+									id="idListaFuncaoSelec" label="Função">
+									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+									<f:selectItems
+										var="funcao"
+										value="#{membroBean.listaFuncoes}" 
+										itemValue="#{funcao}"
+										itemLabel="#{funcao.nome}"/>
+								</p:selectOneMenu>
+			        			<p:outputLabel value="Data da Ordenação"/>
+			        			<p:calendar
+									id="idDataOrdencao" 
+									value="#{membroBean.historicoFuncao.dataOrdenacao}"
+									size="12"
+									label="Data da Ordenação"
+									pattern="dd/MM/yyyy"
+									mask="true">
+								</p:calendar>
+								<p:commandButton id="idBtAddFuncao" value="Adicionar"
+									actionListener="#{membroBean.addFuncao}"
+									rendered="#{!membroBean.mostraBtAltFuncao}"
+									icon="fa fa-fw fa-plus" process="@parent" update="pgDadosEclesiastico" 
+									styleClass="botao"/>
+								<p:commandButton id="idBtAltFuncao" value="Alterar"
+									actionListener="#{membroBean.altFuncao}"
+									rendered="#{membroBean.mostraBtAltFuncao}"
+									icon="fa fa-save" process="@parent" update="pgDadosEclesiastico" 
+									styleClass="botao"/>
+			        		</h:panelGrid>
+			        		<h:panelGrid columns="2" cellpadding="10">
+			        			<p:outputLabel value="Liderança"/>
+			        			<p:selectOneMenu value="#{membroBean.historicoLideranca.lideranca}"
+									id="idListaLiderancaSelec" label="Liderança">
+									<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+									<f:selectItems
+										var="lideranca"
+										value="#{membroBean.listaLiderancas}" 
+										itemValue="#{lideranca}"
+										itemLabel="#{lideranca.nome}"/>
+								</p:selectOneMenu>
+			        			<p:outputLabel value="Data de Início"/>
+			        			<p:calendar
+									id="idDataInicio" 
+									value="#{membroBean.historicoLideranca.dataInicio}"
+									size="12"
+									label="Data de Início"
+									pattern="dd/MM/yyyy"
+									mask="true">
+								</p:calendar>
+								<p:outputLabel value="Data Fim"/>
+			        			<p:calendar
+									id="idDataFim" 
+									value="#{membroBean.historicoLideranca.dataFim}"
+									size="12"
+									label="Data Fim"
+									pattern="dd/MM/yyyy"
+									mask="true">
+								</p:calendar>
+								<p:commandButton id="idBtAddLideranca" value="Adicionar"
+									actionListener="#{membroBean.addLideranca}"
+									rendered="#{!membroBean.mostraBtAltLideranca}"
+									icon="fa fa-fw fa-plus" process="@parent" update="pgDadosEclesiastico" 
+									styleClass="botao"/>
+								<p:commandButton id="idBtAltLideranca" value="Alterar"
+									actionListener="#{membroBean.altLideranca}"
+									rendered="#{membroBean.mostraBtAltLideranca}"
+									icon="fa fa-save" process="@parent" update="pgDadosEclesiastico" 
+									styleClass="botao"/>
+			        		</h:panelGrid>
+				            <p:dataTable id="idListaFuncoes"
+								value="#{membroBean.membro.dadosEclesiastico.funcoes}" 
+								var="hf" emptyMessage="Registros não encontrados."
+								border="1" cellspacing="0" 
+								cellpadding="2" paginator="true" rows="10"
+								paginatorPosition="bottom" reflow="true">
+				
+								<p:column headerText="Descrição" sortBy="#{hf.funcao.nome}">
+									<h:outputLabel value="#{hf.funcao.nome}" />
+								</p:column>
+								<p:column headerText="Data da Ordenação">
+									<p:outputLabel value="#{hf.dataOrdenacao}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+									</p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:commandButton 
+										process="@this" update="frm:tbView:pgDadosEclesiastico"
+										icon="fa fa-fw fa-pencil" title="Editar">
+										<f:setPropertyActionListener value="#{hf}" 
+											target="#{membroBean.historicoFuncao}"/>
+										<f:setPropertyActionListener value="#{true}" 
+											target="#{membroBean.mostraBtAltFuncao}"/>
+									</p:commandButton>
+									<p:commandButton 
+										process="@this" update="frm:tbView:pgDadosEclesiastico"
+										icon="fa fa-fw fa-close" title="Excluir">
+										<f:setPropertyActionListener value="#{hf}" 
+											target="#{membroBean.removerFuncao}"/>
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+							<p:dataTable id="idListaLiderancas"
+								value="#{membroBean.membro.dadosEclesiastico.liderancas}" 
+								var="hl" emptyMessage="Registros não encontrados."
+								border="1" cellspacing="0" cellpadding="2" paginator="true" rows="10"
+								paginatorPosition="bottom" reflow="true">
+				
+								<p:column headerText="Descrição" sortBy="#{hl.lideranca.nome}">
+									<h:outputLabel value="#{hl.lideranca.nome}" />
+								</p:column>
+								<p:column headerText="Data da início">
+									<p:outputLabel value="#{hl.dataInicio}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+									</p:outputLabel>
+								</p:column>
+								<p:column headerText="Data da Fim">
+									<p:outputLabel value="#{hl.dataFim}">
+										<f:convertDateTime pattern="dd/MM/yyyy"/>
+									</p:outputLabel>
+								</p:column>
+								<p:column>
+									<p:commandButton 
+										process="@this" update="frm:tbView:pgDadosEclesiastico"
+										icon="fa fa-fw fa-pencil" title="Editar">
+										<f:setPropertyActionListener value="#{hl}" 
+											target="#{membroBean.historicoLideranca}"/>
+										<f:setPropertyActionListener value="#{true}" 
+											target="#{membroBean.mostraBtAltLideranca}"/>
+									</p:commandButton>
+									<p:commandButton 
+										process="@this" update="frm:tbView:pgDadosEclesiastico"
+										icon="fa fa-fw fa-close" title="Excluir">
+										<f:setPropertyActionListener value="#{hl}" 
+											target="#{membroBean.removerLideranca}"/>
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+			        	</h:panelGrid>
+			        </p:tab>
+			        <p:tab title="Observações">
+			        	<p:inputTextarea value="#{membroBean.membro.observacoes}"
+			        		cols="100" rows="10" counter="display" counterTemplate="{0} letras restantes."
+							maxlength="255"/><br/>
+						<p:outputLabel id="display"/>
+			        </p:tab>
+			    </p:tabView>
+			    <p:commandButton id="idBtSalvarMembro" value="Salvar"
+					actionListener="#{membroBean.salvar}"
+					icon="fa fa-save" process="@parent" update="frm" 
+					styleClass="ui-priority-primary"
+					style="margin-top: .9em"/>
+				
+				<p:button outcome="/membro" value="Novo"
+					icon="fa fa-fw fa-plus" 
+					styleClass="ui-priority-primary"
+					style="margin-top: .9em"/>
+						
+		 	</p:fieldset> 
+		</h:form>
+	</ui:define>
+</ui:composition>

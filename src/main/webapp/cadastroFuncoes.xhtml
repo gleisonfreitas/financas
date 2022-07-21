@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{cadastroFuncoesBean.prepararCadastro}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Cadastro de Funções Eclesiásticas</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+			<p:fieldset legend="Cadastro de Funções Eclesiásticas">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Função" for="idFuncao" />
+					<p:inputText id="idFuncao"
+						value="#{cadastroFuncoesBean.funcao.nome}"
+						label="Função" styleClass="inputGrandeCadastroMembro"/>
+					<p:commandButton id="idBtSalvar" value="Salvar"
+						action="#{cadastroFuncoesBean.salvarFuncao}"
+						icon="fa fa-fw fa-plus" update="@form" 
+						styleClass="ui-priority-primary"/>
+					<p:outputLabel/>
+				</h:panelGrid>
+				<p:dataTable id="idListaFuncoes"
+					value="#{cadastroFuncoesBean.funcoes}" var="func"
+					border="1" cellspacing="0" cellpadding="2" paginator="true" rows="10"
+					paginatorPosition="bottom">
+	
+					<p:column headerText="Nome" sortBy="#{func.nome}">
+						<h:outputLabel value="#{func.nome}" />
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<o:viewParam name="id" value="#{cadastroLancamentosBean.lancamento}"/>
+		<f:viewAction action="#{cadastroLancamentosBean.prepararCadastro}"/>
+	</f:metadata>
+	
+	<ui:define name="titulo">Cadastro de Lançamentos</ui:define>
+	
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true"
+				autoUpdate="true"/>
+			
+			<p:fieldset legend="Cadastro de Lançamentos">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Descrição" for="idDescricao"/>
+					<h:panelGroup>
+					<p:inputTextarea
+						id="idDescricao"					
+						value="#{cadastroLancamentosBean.lancamento.descricao}"
+						label="Descrição"
+						rows="5" cols="30" counter="display" counterTemplate="{0} letras restantes."
+						maxlength="255" /><br/>
+					<p:outputLabel id="display"/>
+					</h:panelGroup>
+					<p:outputLabel value="Categoria" for="idCategoria"/>
+					<p:selectOneMenu
+						id="idCategoria"
+						value="#{cadastroLancamentosBean.categoria}"
+						label="Categoria"
+						filter="true" filterMatchMode="contains"
+						required="true" requiredMessage="Categoria deve ser informado.">
+						<f:ajax event="change" render="idSubCategoria"
+							listener="#{cadastroLancamentosBean.atualizarListaSubCategoria}"/>
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+						<f:selectItems 
+							value="#{cadastroLancamentosBean.categorias}"
+							var="categoria" itemValue="#{categoria}"
+							itemLabel="#{categoria.descricao}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Sub-Categoria" for="idSubCategoria"/>
+					<p:selectOneMenu
+						id="idSubCategoria"
+						value="#{cadastroLancamentosBean.lancamento.subCategoria}"
+						label="Sub-Categoria"
+						filter="true" filterMatchMode="contains">
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+						<f:selectItems
+							value="#{cadastroLancamentosBean.subCategorias}"
+							var="subCategoria"
+							itemValue="#{subCategoria}"
+							itemLabel="#{subCategoria.descricao}"/>
+					</p:selectOneMenu>
+					<p:outputLabel value="Data" for="idData"/>
+					<p:calendar
+						id="idData" 
+						value="#{cadastroLancamentosBean.lancamento.data}"
+						size="12"
+						label="Data de Lançamento"
+						pattern="dd/MM/yyyy"
+						mask="true">
+					</p:calendar>
+					<p:outputLabel value="Valor" for="idValor"/>
+					<p:inputText
+						id="idValor" 
+						value="#{cadastroLancamentosBean.lancamento.valor}"
+						label="Valor"
+						styleClass="js-moeda"
+						style="text-align: right;">
+						<f:convertNumber locale="pt_BR"
+							maxFractionDigits="2" minFractionDigits="2"/>
+					</p:inputText>
+					<p:outputLabel/>
+					<h:panelGroup>
+						<p:commandButton
+							id="idBtSalvar"
+							value="Salvar"
+							action="#{cadastroLancamentosBean.salvar}"
+							icon="fa fa-fw fa-plus" update="@form"
+							ajax="false"
+							styleClass="ui-priority-primary"/>
+						<p:button
+							id="idBtCancelar"
+							value="Cancelar"
+							rendered="#{cadastroLancamentosBean.lancamento.id ne null}"
+							outcome="/consultaLancamentos"
+							icon="fa fa-fw fa-close"
+							styleClass="ui-priority-primary"/>
+					</h:panelGroup>
+				</h:panelGrid>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

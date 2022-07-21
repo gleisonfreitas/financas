@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{inicioBean.prepararMovimentacaoMesAtual}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Movimentação Mensal</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+			
+			<h1>Movimentação Mensal</h1>
+
+			<h:panelGrid columns="4">
+				<p:outputLabel value="Mês" for="idMes" />
+				<p:calendar id="idMes" value="#{inicioBean.mesRef.data}" size="7"
+					label="Mês de Referência" pattern="MM/yyyy" mask="true"/>
+				<p:commandButton id="idBtAtualizar" value="Atualizar"
+					action="#{inicioBean.atualizarMovimentacao}" icon="fa fa-fw fa-refresh"
+					styleClass="ui-priority-primary" ajax="false"/>
+				<p:commandButton id="idBtCriarMes" value="Criar"
+					action="#{inicioBean.criarMes}" icon="fa fa-fw fa-plus" 
+					update="@form" styleClass="ui-priority-primary">
+				</p:commandButton>
+			</h:panelGrid>
+			<h:panelGrid columns="2" columnClasses="columnUmGridInicio, columnDoisGridInicio">
+				<h:panelGroup styleClass="saldoPositivo" rendered="#{inicioBean.tipoSaldo}">
+					<h2>
+						<h:outputLabel value="Saldo: " for="idSaldoPositivo"/>
+						<h:outputLabel id="idSaldoPositivo" value="#{inicioBean.saldoMes}">
+							<f:convertNumber pattern="R$ #,##0.00" locale="pt_BR" />
+						</h:outputLabel>
+					</h2>
+				</h:panelGroup>
+				<h:panelGroup styleClass="saldoNegativo" rendered="#{!inicioBean.tipoSaldo}">
+					<h2>
+						<h:outputLabel value="Saldo: " for="idSaldoNegativo"/>
+						<h:outputLabel id="idSaldoNegativo" value="#{inicioBean.saldoMes}">
+							<f:convertNumber pattern="R$ #,##0.00" locale="pt_BR" />
+						</h:outputLabel>
+					</h2>
+				</h:panelGroup>
+				<h:outputLabel />
+				<p:dataTable id="idListaReceitas"
+					value="#{inicioBean.listaReceitas}" var="categoria">
+					
+					<f:facet name="header">
+						<h:outputLabel value="RECEITAS" />
+					</f:facet>
+					
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Descrição"/>
+							<p:column headerText="Valor R$"/>
+						</p:row>
+					</p:columnGroup>
+					
+					<p:subTable var="subCategoria" value="#{categoria.listaSubCategoria}">
+						<f:facet name="header">
+							<h:outputLabel value="#{categoria.descricao}"/>
+						</f:facet>
+						<p:column>
+							<h:outputLabel value="#{subCategoria.descricao}"/>
+						</p:column>
+						<p:column>
+							<h:outputLabel value="#{subCategoria.valor}">
+								<f:convertNumber pattern="#,##0.00" locale="pt_BR" />
+							</h:outputLabel>
+						</p:column>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column footerText="Total: " style="text-align: right"/>
+								<p:column footerText="#{categoria.total}"/>
+							</p:row>
+						</p:columnGroup>
+					</p:subTable>
+					<p:columnGroup type="footer">
+							<p:row>
+								<p:column footerText="Total RECEITAS: " style="text-align: right; font-weight: bold"/>
+								<p:column footerText="#{inicioBean.totalReceitas}" style="text-align: left; font-weight: bold"/>
+							</p:row>
+					</p:columnGroup>
+				</p:dataTable>
+				<h:panelGroup>
+					<p:chart type="bar" model="#{inicioBean.barModel}"	style="height:200px"/>				
+					<p:chart type="line" model="#{inicioBean.lineModel}" style="height:200px"/>
+				</h:panelGroup>
+				<p:dataTable id="idListaDespesas"
+					value="#{inicioBean.listaDespesas}" var="categoria">
+					
+					<f:facet name="header">
+						<h:outputLabel value="DESPESAS" />
+					</f:facet>
+					
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Descrição"/>
+							<p:column headerText="Valor R$"/>
+						</p:row>
+					</p:columnGroup>
+					
+					<p:subTable var="subCategoria" value="#{categoria.listaSubCategoria}">
+						<f:facet name="header">
+							<h:outputLabel value="#{categoria.descricao}"/>
+						</f:facet>
+						<p:column>
+							<h:outputLabel value="#{subCategoria.descricao}"/>
+						</p:column>
+						<p:column>
+							<h:outputLabel value="#{subCategoria.valor}">
+								<f:convertNumber pattern="#,##0.00" locale="pt_BR" />
+							</h:outputLabel>
+						</p:column>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column footerText="Total: " style="text-align: right"/>
+								<p:column footerText="#{categoria.total}"/>
+							</p:row>
+						</p:columnGroup>
+					</p:subTable>
+					<p:columnGroup type="footer">
+							<p:row>
+								<p:column footerText="Total DESPESAS: " style="text-align: right; font-weight: bold"/>
+								<p:column footerText="#{inicioBean.totalDespesas}" style="text-align: left; font-weight: bold"/>
+							</p:row>
+					</p:columnGroup>
+				</p:dataTable>
+				<h:panelGroup>
+					<p:chart type="bar" model="#{inicioBean.historicoAnual}" style="height:300px" />
+					<p:chart type="bar" model="#{inicioBean.barDespesas}"	style="height:500px" />
+				</h:panelGroup>			
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

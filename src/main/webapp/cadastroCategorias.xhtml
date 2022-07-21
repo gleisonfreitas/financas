@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<f:metadata>
+		<f:viewAction action="#{cadastroCategoriasBean.prepararCadastro}" />
+	</f:metadata>
+
+	<ui:define name="titulo">Cadastro de Categorias</ui:define>
+
+	<ui:define name="corpo">
+		<h:form id="frm">
+			<p:messages showDetail="false" showSummary="true" autoUpdate="true" />
+
+			<p:fieldset legend="Cadastro de Categorias">
+				<h:panelGrid columns="2">
+					<p:outputLabel value="Categoria" for="idCategoria" />
+					<p:inputText id="idCategoria"
+						value="#{cadastroCategoriasBean.categoria.descricao}"
+						label="Categoria" />
+					<p:outputLabel value="Tipo" for="idTipoLancamento"/>
+					<p:selectOneButton
+						id="idTipoLancamento"
+						value="#{cadastroCategoriasBean.categoria.tipoLancamento}"
+						label="Tipo de Lançamento">
+						<f:selectItems
+							value="#{cadastroCategoriasBean.tipoLancamentos}"
+							var="tipoLancamento"
+							itemValue="#{tipoLancamento}"
+							itemLabel="#{tipoLancamento.nome}"/>
+					</p:selectOneButton>
+					<p:commandButton id="idBtSalvar" value="Salvar"
+						action="#{cadastroCategoriasBean.salvarCategoria}"
+						icon="fa fa-fw fa-plus" update="@form" 
+						styleClass="ui-priority-primary"/>
+					<p:outputLabel/>
+				</h:panelGrid>
+				<p:dataTable id="idListaCategoria"
+					value="#{cadastroCategoriasBean.listaCategorias}" var="categoria"
+					border="1" cellspacing="0" cellpadding="2" paginator="true" rows="10"
+					paginatorPosition="bottom">
+	
+					<p:column headerText="Descrição" sortBy="#{categoria.descricao}">
+						<h:outputLabel value="#{categoria.descricao}" />
+					</p:column>
+					<p:column headerText="Tipo">
+						<h:outputLabel value="#{categoria.tipoLancamento.nome}" />
+					</p:column>
+				</p:dataTable>
+			</p:fieldset>
+		</h:form>
+	</ui:define>
+</ui:composition>
